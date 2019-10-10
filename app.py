@@ -11,6 +11,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 db = SQLAlchemy(app)
 
 
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), nullable=False)
+
+
 @app.route("/")
 def hello_world():
     return "Hello World!"
