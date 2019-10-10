@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -21,4 +22,8 @@ db.create_all()
 
 @app.route("/")
 def hello_world():
-    return "Hello World!"
+    person = Person.query.first()
+    if person:
+        return f"Hello {person.name}!"
+    else:
+        return "Hello World!"
